@@ -28,14 +28,14 @@ public class IntroUI extends JFrame {
         }
 		
     	JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-    	JLabel info = new JLabel("<html><table border='0' width='100%'><tr><td><b>Team name:</b></td><td>" + properties.getProperty("team_name") + 
+    	JLabel information = new JLabel("<html><table border='0' width='100%'><tr><td><b>Team name:</b></td><td>" + properties.getProperty("team_name") + 
     			"</td></tr><tr><td>Team leader:</td><td>" + properties.getProperty("team_leader") + 
     			"</td></tr><tr><td>Team leader e-mail:</td><td>" + properties.getProperty("team_leader_email") + 
     			"</td></tr><tr><td>Team members:</td><td>" + properties.getProperty("team_members") + 
     			"</td></tr><tr><td>Team logo:</td><td><img border='0' src='" + properties.getProperty("team_logo") + "' width='150' height='150'>" +
     			"</td></tr><tr><td>Software version number:</td><td>" + properties.getProperty("build.number") + 
     			"</td></tr></table></html>");
-    	panel.add(info);
+    	panel.add(information);
     	
     	add(panel);
     	setSize(400, 320);

@@ -14,7 +14,7 @@
   <property name="jar.name" value="14_50.jar"/>
   <property name="lib.dir" value="${basedir}/lib"/>
 
-  <target name="run" description="Run the application">
+  <target name="run" depends="build" description="Run the application">
     <java classname="${main.class}">
     </java>
   </target>
