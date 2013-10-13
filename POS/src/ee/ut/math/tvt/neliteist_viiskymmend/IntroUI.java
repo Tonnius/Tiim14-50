@@ -35,6 +35,7 @@ public class IntroUI extends JFrame {
     			"</td></tr><tr><td>Team logo:</td><td><img border='0' src='" + properties.getProperty("team_logo") + "' width='150' height='150'>" +
     			"</td></tr><tr><td>Software version number:</td><td>" + properties.getProperty("build.number") + 
     			"</td></tr></table></html>");
+    	
     	panel.add(information);
     	
     	add(panel);
