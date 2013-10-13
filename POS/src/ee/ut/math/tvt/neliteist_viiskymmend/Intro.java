@@ -6,9 +6,9 @@ public class Intro {
         
         public static void main(String[] args) throws IOException {
         	
-        	IntroUI introUI = new IntroUI("application.properties","version.properties");
-        	introUI.setVisible(true);
-            introUI.setAlwaysOnTop(true);
+        	IntroUI introGUI = new IntroUI("application.properties","version.properties");
+        	introGUI.setVisible(true);
+            introGUI.setAlwaysOnTop(true);
             
         }
 
