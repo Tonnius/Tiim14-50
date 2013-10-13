@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="POS" default="build" basedir=".">
     <description>
-        simple example build file
+        
     </description>
   <!-- set global properties for this build -->
   <property file="build.properties"/>
