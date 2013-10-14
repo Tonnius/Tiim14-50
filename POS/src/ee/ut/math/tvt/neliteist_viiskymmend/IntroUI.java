@@ -10,6 +10,7 @@ import javax.swing.*;
 import org.apache.log4j.Logger;
 import org.apache.log4j.BasicConfigurator;
 
+// A class to create GUI using JFrame
 
 public class IntroUI extends JFrame {
 	
@@ -26,15 +27,20 @@ public class IntroUI extends JFrame {
 		BasicConfigurator.configure();
 		
     	try {
+    		
+    		// Properties information from two files
 
     		properties.load(new FileInputStream(applicationProperties));
     		properties.load(new FileInputStream(versionProperties));
 
     	} catch (IOException ex) {
+    		
     		log.warn("Properties file not found!");
     		ex.printStackTrace();
     		
         }
+    	
+    	// Components of GUI
 		
     	JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
     	JLabel information = new JLabel("<html><table border='0' width='100%'><tr><td><b>Team name:</b></td><td>" + properties.getProperty("team_name") + 
@@ -53,6 +59,8 @@ public class IntroUI extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         
         String date = new Date().toString();
+        
+        // Show a message when GUI is opened using log4j logging
         
         log.info("IntroUI opened " + date);
     	

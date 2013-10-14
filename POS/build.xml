@@ -1,111 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project basedir="." name="POS" default="build">
+<project name="POS" default="build" basedir=".">
 
-	<!-- Definitions of variables used during the rest of this script -->
+  	<!-- set global properties for this build -->
+  	<property file="build.properties"/>
+  	<property name="src.dir" location="src"/>
+  	<property name="lib" value="lib"/>
+  	<property name="build.dir" value="${basedir}/build"/>
+  	<property name="build.classes.dir" value="${build.dir}/classes"/>
+  	<property name="conf.dir" value="${basedir}/conf"/>
+  	<property name="dist.dir" value="${build.dir}/jar"/>
+  	<property name="main.class" value="ee.ut.math.tvt.neliteist_viiskymmend.Intro"/>
+  	<property name="jar.name" value="14_50.jar"/>
+  	<property name="lib.dir" value="${basedir}/lib"/>
 
-	<property file="build.properties"/>
-	<property name="build.dir" value="${basedir}/build"/>
-	<property name="build.classes.dir" value="${build.dir}/classes"/>
-	<property name="src.dir" value="${basedir}/src"/>
-	<property name="dist.dir" value="${build.dir}/jar"/>
-	<property name="conf.dir" value="${basedir}/etc"/>
-	<property name="main.class" value="ee.ut.math.tvt.neliteist_viiskymmend.Intro"/>
-	<property name="jar.name" value="14_50.jar"/>
-	<property name="lib.dir" value="${basedir}/lib"/>
-	
-	<!-- Definitions of classpath variants used for different tasks -->
-
-	<path id="compile.classpath">
-		<fileset dir="lib">
-			<include name="*.jar"/>
-		</fileset>
-	</path>
-
-	<path id="test.classpath">
+  	<path id="classpath">
 		<pathelement location="${build.classes.dir}"/>
-		<!-- configuration -->
-		<pathelement location="${conf.dir}"/>
-		<fileset dir="lib">
-			<include name="*.jar"/>
+	    <pathelement location="${conf.dir}"/>
+	    <fileset dir="${lib.dir}" includes="**/*.jar">
 		</fileset>
-	</path>
-
-	<!-- Definitions of runnable ant targets.
-         Run them from the command line by executing "ant [targetname]"  -->
-
-	<target name="run" depends="build" description="Run the template application">
-		<java classname="${main.class}" classpathref="test.classpath" fork="yes">
-		</java>
+  	</path>
+	
+	<target name="run" description="Run the application" depends="build">
+		<java classname="${main.class}" classpathref="classpath" fork="true"/>
 	</target>
-
+	
 	<target name="build" description="Build the system">
 		<mkdir dir="${build.dir}"/>
-		<mkdir dir="${build.classes.dir}"/>
+    	<mkdir dir="${build.classes.dir}"/>
 		<javac
-            srcdir="${src.dir}"
-            destdir="${build.classes.dir}"
-            debug="true"
-            debuglevel="lines,vars,source"
-            encoding="utf-8"
-            compiler="modern"
-            target="1.7"
-            source="1.7"
-			includeantruntime="false">
+    		srcdir="${src.dir}"
+			destdir="${build.classes.dir}"
+    		classpathref="classpath"
+			debug="true"
+			debuglevel="lines,vars,source"
+			encoding="utf-8"
+			compiler="modern"
+			target="1.7"
+			source="1.7"
+			includeantruntime="false"
+		>
 		</javac>
-		<classpath refid="compile.classpath" includes="**/*.jar"/>
-		<classpath refid="test.classpath" includes="**/*.jar"/>
 	</target>
 
-	<target name="dist" description="Build a jar file and increment revision number" depends="build">
-		        
-		        <propertyfile file="version.properties">
-		                <entry key="build.revision.number" type="int" operation="+" value="1" pattern="00"/>    
-		        </propertyfile>
-	  			<propertyfile file="version.properties">
-	  		            <entry key="build.major.number" type="int" value="0" />    
-	  		    </propertyfile>
-	   			<propertyfile file="version.properties">
-	  		            <entry key="build.minor.number" type="int" value="0"/>    
-	  		    </propertyfile>
-		        <property file="version.properties"/>
-		        <propertyfile file="version.properties">
-		                <entry  key="build.number" value="${build.major.number}.${build.minor.number}.${build.revision.number}"/>
-		        </propertyfile>
-		                
-		        <mkdir dir="${dist.dir}" />
-		        <jar destfile="${dist.dir}/${jar.name}" basedir="${build.classes.dir}" >
-		            <manifest>
-		                <attribute name="Main-Class" value="${main.class}"/>
-		                <attribute name="Class-Path" value="." />
-		            </manifest>  
-		                
-		                <fileset dir="${basedir}">
-		                        <include name="application.properties"/>
-		                        <include name="version.properties"/>
-		                </fileset>
-		                
-		                <!-- Extracts the libraries -->
-		           <restrict>
-		             <name name="**/*.class"/>
-		             <archives>
-		               <zips>
-		              <fileset dir="${lib.dir}" includes="**/*.jar"/>
-		                </zips>
-		              </archives>
-		             </restrict> 
-		        </jar>
-	</target>
+  	<target name="dist" description="Build a jar file and increment revision number" depends="build">
+        <propertyfile file="version.properties">
+	        <entry key="build.revision.number" type="int" operation="+" value="1" pattern="00"/>    
+	    </propertyfile>
+  		<propertyfile file="version.properties">
+  		    <entry key="build.major.number" type="int" value="0" />    
+  		</propertyfile>
+   		<propertyfile file="version.properties">
+  		    <entry key="build.minor.number" type="int" value="0"/>    
+  		</propertyfile>
+	    <property file="version.properties"/>
+	    <propertyfile file="version.properties">
+	        <entry  key="build.number" value="${build.major.number}.${build.minor.number}.${build.revision.number}"/>
+	    </propertyfile>
+	                
+	    <mkdir dir="${dist.dir}" />
+	    <jar destfile="${dist.dir}/${jar.name}" basedir="${build.classes.dir}" >
+	    	<manifest>
+	        	<attribute name="Main-Class" value="${main.class}"/>
+	            <attribute name="Class-Path" value="." />
+	        </manifest>  
+	        <fileset dir="${basedir}">
+	        	<include name="application.properties"/>
+	            <include name="version.properties"/>
+	        </fileset>
+	    </jar>
+  	</target>
 	
-	<target name="jrun" description="Run the jar file" depends="dist">
-	    <java fork="true" jar="${dist.dir}/${jar.name}"/>
-	</target>
-	
-	<!-- Clean up build system results -->
-	<target name="clean"
-	        description="clean up" >
-	    <!-- Delete the ${build} directory trees -->
-	    <delete dir="${build.dir}"/>
+  	<target name="jrun" description="Run the jar file" depends="dist">
+    	<java jar="${dist.dir}/${jar.name}" fork="true"/>
+  	</target>
+
+  	<target name="clean" description="Clean up - delete the ${build} directory tree">
+    	<delete dir="${build.dir}"/>
 	</target>
 
 </project>
-
