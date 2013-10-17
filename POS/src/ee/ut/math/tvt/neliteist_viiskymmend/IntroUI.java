@@ -18,7 +18,7 @@ public class IntroUI extends JFrame {
 	
 	private static final Logger log = Logger.getLogger(IntroUI.class);
 	
-	public IntroUI(String applicationProperties, String versionProperties) throws IOException {
+	public IntroUI() throws IOException {
 		
 		super("Team information");
 		
@@ -30,11 +30,11 @@ public class IntroUI extends JFrame {
     		
     		// Properties information from two files
 
-    		properties.load(new FileInputStream(applicationProperties));
-    		properties.load(new FileInputStream(versionProperties));
+    		properties.load(new FileInputStream("application.properties"));
+    		properties.load(new FileInputStream("version.properties"));
 
-    	} catch (IOException ex) {
-    		
+    	} 
+    	catch (IOException ex) {
     		log.warn("Properties file not found!");
     		ex.printStackTrace();
     		
