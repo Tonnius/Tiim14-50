@@ -34,6 +34,7 @@ public class PurchaseItemPanel extends JPanel {
     private JComboBox nameField;
 	private JTextField quantityField;
     private JTextField priceField;
+    private JTextField barCodeField;
 
     private JButton addItemButton;
 
@@ -95,6 +96,7 @@ public class PurchaseItemPanel extends JPanel {
         nameField = new JComboBox(wareHouseList);
 		quantityField = new JTextField("1");
         priceField = new JTextField();
+        barCodeField = new JTextField();
 
         // Fill the dialog fields if an item is selected from menu
         nameField.addActionListener(new ActionListener() {
@@ -110,6 +112,10 @@ public class PurchaseItemPanel extends JPanel {
         // - item
         panel.add(new JLabel("Item:"));
         panel.add(nameField);
+        
+        // - bar code
+        panel.add(new JLabel("Bar code:"));
+        panel.add(barCodeField);
 
         // - amount
         panel.add(new JLabel("Amount:"));
@@ -138,6 +144,8 @@ public class PurchaseItemPanel extends JPanel {
         if (stockItem != null) {
             String priceString = String.valueOf(stockItem.getPrice());
             priceField.setText(priceString);
+            String barCodeString = String.valueOf(stockItem.getId());
+            barCodeField.setText(barCodeString);
         } else {
             reset();
         }
