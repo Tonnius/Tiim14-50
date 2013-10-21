@@ -18,6 +18,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import org.apache.log4j.Logger;
+
 import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
@@ -28,6 +30,8 @@ import ee.ut.math.tvt.salessystem.ui.model.StockTableModel;
  */
 public class PurchaseItemPanel extends JPanel {
 
+	private static final Logger log = Logger.getLogger(PurchaseItemPanel.class);
+	
     private static final long serialVersionUID = 1L;
     
     // Text field on the dialogPane
@@ -178,9 +182,14 @@ public class PurchaseItemPanel extends JPanel {
                 quantity = Integer.parseInt(quantityField.getText());
             } catch (NumberFormatException ex) {
                 quantity = 1;
+            } 
+            // check if we have enough items in stock
+            if (quantity > stockItem.getQuantity()) {
+            	quantity = stockItem.getQuantity();
+            	log.debug("Can't add more items than we have in stock, amount amended.");
             }
             model.getCurrentPurchaseTableModel()
-                .addItem(new SoldItem(stockItem, quantity));
+                .addItem(new SoldItem(stockItem, quantity), stockItem.getQuantity());
         }
     }
 

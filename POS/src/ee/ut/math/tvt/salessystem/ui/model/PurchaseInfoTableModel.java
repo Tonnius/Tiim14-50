@@ -71,11 +71,7 @@ public class PurchaseInfoTableModel extends SalesSystemTableModel<SoldItem> {
     /**
      * Add new StockItem to table.
      */
-    public void addItem(final SoldItem item) {
-        /**
-         * XXX In case such stockItem already exists increase the quantity of the
-         * existing stock.
-         */
+    public void addItem(final SoldItem item, int stockQuantity) {
     	String s = "";
     	boolean exists = false;
     	int location = 0;
@@ -89,14 +85,22 @@ public class PurchaseInfoTableModel extends SalesSystemTableModel<SoldItem> {
     	       break;
     	    }
     	}
+    	// add item to table
     	if (exists == false)
     		{
     			rows.add(item);
     		}
+    	// if item already exists increase quantity
     	else 
     		{
     			Integer newQuantity = (Integer)getValueAt(location, 3) + item.getQuantity();
-    		 	setValueAt(newQuantity, location, 3);
+    			// check if we have enough in stock and lower quantity if needed
+    			if (newQuantity > stockQuantity)
+    				{
+    					newQuantity = stockQuantity;
+    					log.debug("Can't add more items than we have in stock, amount amended.");
+    				}
+    			setValueAt(newQuantity, location, 3);
     		}
     	log.debug("Added " + item.getName() + " quantity of " + item.getQuantity());
     	fireTableDataChanged();
