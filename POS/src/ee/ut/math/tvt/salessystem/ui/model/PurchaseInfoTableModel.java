@@ -13,7 +13,7 @@ public class PurchaseInfoTableModel extends SalesSystemTableModel<SoldItem> {
 	private static final Logger log = Logger.getLogger(PurchaseInfoTableModel.class);
 	
 	public PurchaseInfoTableModel() {
-		super(new String[] { "Id", "Name", "Price", "Quantity"});
+		super(new String[] { "Id", "Name", "Price", "Quantity", "Sum"});
 	}
 
 	@Override
@@ -27,9 +27,26 @@ public class PurchaseInfoTableModel extends SalesSystemTableModel<SoldItem> {
 			return item.getPrice();
 		case 3:
 			return item.getQuantity();
+		case 4:
+			return item.getPrice()*item.getQuantity();
 		}
 		throw new IllegalArgumentException("Column index out of range");
 	}
+	
+    public void setValueAt(Object aValue, final int rowIndex, final int columnIndex) {
+    	switch (columnIndex) {
+		case 0:
+			rows.get(rowIndex).setId((Long)aValue);
+		case 1:
+			rows.get(rowIndex).setName((String)aValue);
+		case 2:
+			rows.get(rowIndex).setPrice((Long)aValue);
+		case 3:
+			rows.get(rowIndex).setQuantity((Integer)aValue);
+		case 4:
+			return;
+		}
+    }
 
 	@Override
 	public String toString() {
@@ -59,9 +76,30 @@ public class PurchaseInfoTableModel extends SalesSystemTableModel<SoldItem> {
          * XXX In case such stockItem already exists increase the quantity of the
          * existing stock.
          */
-        
-        rows.add(item);
-        log.debug("Added " + item.getName() + " quantity of " + item.getQuantity());
-        fireTableDataChanged();
+    	String s = "";
+    	boolean exists = false;
+    	int location = 0;
+    	for (int i=0; i<getRowCount(); i++) 
+    	{    
+    	    s = getValueAt(i, 1).toString().trim();
+    	    if(item.getName().equals(s))
+    	    {
+    	       exists = true;
+    	       location = i;
+    	       break;
+    	    }
+    	}
+    	if (exists == false)
+    		{
+    			rows.add(item);
+    		}
+    	else 
+    		{
+    			Integer newQuantity = (Integer)getValueAt(location, 3) + item.getQuantity();
+    		 	setValueAt(newQuantity, location, 3);
+    		}
+    	log.debug("Added " + item.getName() + " quantity of " + item.getQuantity());
+    	fireTableDataChanged();
+
     }
 }
