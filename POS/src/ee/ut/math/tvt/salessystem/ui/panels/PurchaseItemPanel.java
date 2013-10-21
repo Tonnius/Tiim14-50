@@ -106,6 +106,7 @@ public class PurchaseItemPanel extends JPanel {
         });
 
         priceField.setEditable(false);
+        barCodeField.setEditable(false);
 
         // == Add components to the panel
 
