@@ -41,6 +41,8 @@ private static final String MODE = "console";
 				e.printStackTrace();
 			}
 			introUI.setVisible(false);
+			
 		}
+		log.info("SalesSystem started");
 	}
 }

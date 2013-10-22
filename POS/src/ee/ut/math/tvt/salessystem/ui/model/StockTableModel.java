@@ -21,7 +21,7 @@ public class StockTableModel extends SalesSystemTableModel<StockItem> {
 	}
 
 	@Override
-	protected Object getColumnValue(StockItem item, int columnIndex) {
+	public Object getColumnValue(StockItem item, int columnIndex) {
 		switch (columnIndex) {
 		case 0:
 			return item.getId();
@@ -53,6 +53,12 @@ public class StockTableModel extends SalesSystemTableModel<StockItem> {
 					+ " quantity of " + stockItem.getQuantity());
 		}
 		fireTableDataChanged();
+	}
+	public void updateItem(final StockItem stockItem) {
+		StockItem item = getItemById(stockItem.getId());
+		item.setQuantity(stockItem.getQuantity());
+		log.debug("Found existing item " + stockItem.getName()
+				+ " changed quantity to " + stockItem.getQuantity());
 	}
 	
 	public Map<String,Long> getItems() {

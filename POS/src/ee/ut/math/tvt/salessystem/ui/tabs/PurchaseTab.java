@@ -168,6 +168,11 @@ public class PurchaseTab {
     log.info("Sale complete");
     try {
       log.debug("Contents of the current basket:\n" + model.getCurrentPurchaseTableModel());
+      domainController.setModel(model);
+      if (model.getCurrentPurchaseTableModel().getTableRows().size() == 0) {
+    	  log.warn("Can't process empty sale!");
+    	  return;
+      }
       domainController.submitCurrentPurchase(
           model.getCurrentPurchaseTableModel().getTableRows()
       );
