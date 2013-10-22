@@ -151,6 +151,7 @@ public class PurchaseItemPanel extends JPanel {
             priceField.setText(priceString);
             String barCodeString = String.valueOf(stockItem.getId());
             barCodeField.setText(barCodeString);
+            quantityField.setText("1");
         } else {
             reset();
         }
