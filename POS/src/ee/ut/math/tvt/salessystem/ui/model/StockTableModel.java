@@ -1,6 +1,7 @@
 package ee.ut.math.tvt.salessystem.ui.model;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
@@ -54,11 +55,16 @@ public class StockTableModel extends SalesSystemTableModel<StockItem> {
 		}
 		fireTableDataChanged();
 	}
+	
+	// modify item info in stock table
 	public void updateItem(final StockItem stockItem) {
 		StockItem item = getItemById(stockItem.getId());
+		item.setName(stockItem.getName());
+		item.setPrice(stockItem.getPrice());
+		item.setDescription(stockItem.getDescription());
 		item.setQuantity(stockItem.getQuantity());
-		log.debug("Found existing item " + stockItem.getName()
-				+ " changed quantity to " + stockItem.getQuantity());
+		log.debug("Altered item with barcode " + stockItem.getId());
+		fireTableDataChanged();
 	}
 	
 	public Map<String,Long> getItems() {
@@ -70,6 +76,10 @@ public class StockTableModel extends SalesSystemTableModel<StockItem> {
 		
 		return dict;
 	}
+	
+    public List<StockItem> getRows() {
+    	return rows;
+    }
 
 	@Override
 	public String toString() {

@@ -93,11 +93,9 @@ public class PurchaseItemPanel extends JPanel {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(5, 2));
         panel.setBorder(BorderFactory.createTitledBorder("Product"));
-        
-        String[] wareHouseList = (String[]) wareHouseItems.keySet().toArray(new String[0]);
         		
         // Initialize the textfields
-        nameField = new JComboBox(wareHouseList);
+        nameField = new JComboBox();
 		quantityField = new JTextField("1");
         priceField = new JTextField();
         barCodeField = new JTextField();
@@ -152,8 +150,6 @@ public class PurchaseItemPanel extends JPanel {
             String barCodeString = String.valueOf(stockItem.getId());
             barCodeField.setText(barCodeString);
             quantityField.setText("1");
-        } else {
-            reset();
         }
     }
 
@@ -161,13 +157,14 @@ public class PurchaseItemPanel extends JPanel {
     // selected from the drop down box
     private StockItem getStockItemByBarcode() {
         try {
+        	wareHouseItems = wareHouseModel.getItems();
             String name = (String) nameField.getSelectedItem();
             Long id = wareHouseItems.get(name);
             return wareHouseModel.getItemById(id);
-        } catch (NumberFormatException ex) {
-            return null;
         } catch (NoSuchElementException ex) {
             return null;
+        } catch (NullPointerException ex) {
+        	return null;
         }
     }
 
@@ -208,6 +205,12 @@ public class PurchaseItemPanel extends JPanel {
      * Reset dialog fields and fill in default selected item price.
      */
     public void reset() {
+    	wareHouseModel = model.getWarehouseTableModel();
+    	String[] wareHouseList = (String[]) wareHouseModel.getItems().keySet().toArray(new String[0]);
+        nameField.removeAllItems();
+        for(String s:wareHouseList){
+            nameField.addItem(s);
+        }
         quantityField.setText("1");
         fillDialogFields();
     }
