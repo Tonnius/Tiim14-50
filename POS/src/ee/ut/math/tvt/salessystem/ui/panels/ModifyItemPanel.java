@@ -21,6 +21,7 @@ import ee.ut.math.tvt.neliteist_viiskymmend.Intro;
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
 import ee.ut.math.tvt.salessystem.ui.model.StockTableModel;
+import ee.ut.math.tvt.salessystem.ui.popups.ErrorPopup;
 
 /**
  * Panel for modifying existing item data in warehouse
@@ -87,6 +88,7 @@ public class ModifyItemPanel extends JPanel {
 				}
 				catch (NumberFormatException ex) {
 					log.debug("Invalid item data!");
+					ErrorPopup.createPopup("Invalid item data, item not modified!");
 					nameField.setText("");
 					fillDialogFields();
 				}

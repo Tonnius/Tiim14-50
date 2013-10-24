@@ -69,6 +69,7 @@ public class AddItemPanel extends JPanel{
 				}
 				catch (NumberFormatException ex) {
 					log.debug("Invalid item data!");
+					ErrorPopup.createPopup("Invalid item data, item not added!");
 					barCodeField.setText("");
 					fillDialogFields();
 				}

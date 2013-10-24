@@ -4,15 +4,19 @@ import ee.ut.math.tvt.salessystem.domain.exception.VerificationFailedException;
 import ee.ut.math.tvt.salessystem.domain.controller.SalesDomainController;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
 import ee.ut.math.tvt.salessystem.ui.panels.PurchaseItemPanel;
+import ee.ut.math.tvt.salessystem.ui.popups.ErrorPopup;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
 import org.apache.log4j.Logger;
 
 /**
@@ -170,7 +174,8 @@ public class PurchaseTab {
       log.debug("Contents of the current basket:\n" + model.getCurrentPurchaseTableModel());
       domainController.setModel(model);
       if (model.getCurrentPurchaseTableModel().getTableRows().size() == 0) {
-    	  log.warn("Can't process empty sale!");
+    	  ErrorPopup.createPopup("Can't process empty sale!");
+    	  log.debug("Can't process empty sale!");
     	  return;
       }
       domainController.submitCurrentPurchase(
