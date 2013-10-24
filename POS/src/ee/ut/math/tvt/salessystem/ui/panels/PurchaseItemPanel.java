@@ -24,6 +24,7 @@ import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
 import ee.ut.math.tvt.salessystem.ui.model.StockTableModel;
+import ee.ut.math.tvt.salessystem.ui.popups.ErrorPopup;
 
 /**
  * Purchase pane + shopping cart table UI.
@@ -184,6 +185,7 @@ public class PurchaseItemPanel extends JPanel {
             // check if we have enough items in stock
             if (quantity > stockItem.getQuantity()) {
             	quantity = stockItem.getQuantity();
+            	ErrorPopup.createPopup("Can't add more items than we have in stock, amount amended.");
             	log.debug("Can't add more items than we have in stock, amount amended.");
             }
             model.getCurrentPurchaseTableModel()

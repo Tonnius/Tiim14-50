@@ -3,6 +3,7 @@ package ee.ut.math.tvt.salessystem.ui.model;
 import org.apache.log4j.Logger;
 
 import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
+import ee.ut.math.tvt.salessystem.ui.popups.ErrorPopup;
 
 /**
  * Purchase history details model.
@@ -98,6 +99,7 @@ public class PurchaseInfoTableModel extends SalesSystemTableModel<SoldItem> {
     			if (newQuantity > stockQuantity)
     				{
     					newQuantity = stockQuantity;
+    					ErrorPopup.createPopup("Can't add more items than we have in stock, amount amended.");
     					log.debug("Can't add more items than we have in stock, amount amended.");
     				}
     			setValueAt(newQuantity, location, 3);
