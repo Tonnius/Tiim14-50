@@ -5,7 +5,6 @@ import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
 import ee.ut.math.tvt.salessystem.ui.panels.AddItemPanel;
 import ee.ut.math.tvt.salessystem.ui.panels.ModifyItemPanel;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.EventQueue;
@@ -144,8 +143,6 @@ public class StockTab {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				JPanel panel = new JPanel();
-				panel.setLayout(new GridBagLayout());
 				JPanel selectionPanel = new JPanel();
 				if (param.equals("add")) {
 					selectionPanel = new AddItemPanel(model, popupDialog);
@@ -155,11 +152,8 @@ public class StockTab {
 					((ModifyItemPanel) selectionPanel).fillDialogFields();
 				}
 				
-				panel.add(selectionPanel);
-				
-				popupDialog.add(panel);
-				
-				popupDialog.getContentPane().add(BorderLayout.CENTER, panel);
+				popupDialog.add(selectionPanel);
+
 				popupDialog.pack();
 				popupDialog.setLocationByPlatform(true);
 				popupDialog.setVisible(true);
