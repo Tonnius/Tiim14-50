@@ -58,12 +58,7 @@ public class PurchaseInfoTableModel extends SalesSystemTableModel<SoldItem> {
 		buffer.append("\n");
 
 		for (final SoldItem item : rows) {
-			buffer.append(item.getId() + "\t");
-			buffer.append(item.getName() + "\t");
-			buffer.append(item.getPrice() + "\t");
-			buffer.append(item.getQuantity() + "\t");
-			buffer.append(item.getSum() + "\t");
-			buffer.append("\n");
+			buffer.append(item.toString());
 		}
 
 		return buffer.toString();

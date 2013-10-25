@@ -17,6 +17,8 @@ public class OrderHistoryTableModel extends SalesSystemTableModel<Order> {
 			return item.getDate();
 		case 1:
 			return item.getTotalPrice();
+		case 2:
+			return item.getOrderedItems();
 		}
 		throw new IllegalArgumentException("Column index out of range");
 	}

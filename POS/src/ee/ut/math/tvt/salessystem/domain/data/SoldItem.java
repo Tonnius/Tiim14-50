@@ -68,4 +68,14 @@ public class SoldItem implements Cloneable, DisplayableItem {
         this.stockItem = stockItem;
     }
     
+    public String toString() {
+    	StringBuffer buffer = new StringBuffer();
+    	buffer.append(getId() + "\t");
+		buffer.append(getName() + "\t");
+		buffer.append(getPrice() + "\t");
+		buffer.append(getQuantity() + "\t");
+		buffer.append(getSum() + "\n");
+		return buffer.toString();
+    }
+    
 }
