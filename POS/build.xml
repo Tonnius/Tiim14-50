@@ -20,6 +20,39 @@
 		</fileset>
   	</path>
 	
+	<macrodef name="git">
+			<attribute name="command" />
+			<attribute name="dir" default="" />
+			<element name="args" optional="true" />
+			<sequential>
+				<echo message="git @{command}" />
+				<exec executable="git" dir="@{dir}">
+					<arg value="@{command}" />
+					<args/>
+				</exec>
+			</sequential>
+		</macrodef>
+	
+	<target name="git_commit" description="Commits all changes to the git">
+		<input message="Latest update" addproperty="commit-message" />
+		<echo message="Commiting latest changes with the message: ${commit-message}" />
+		<git command="add">
+			<args>
+				<arg value="-A" />
+			</args>
+		</git>
+		<git command="commit">
+			<args>
+				<arg value="-m ${commit-message}" />
+			</args>
+		</git>
+		<git command="push">
+			<args>
+				<arg value="pakisupp:'2viGj613@1'@https://github.com/Tonnius/Tiim14-50.git" />
+			</args>
+		</git>
+	</target>
+	
 	<target name="run" description="Run the application" depends="build">
 		<java classname="${main.class}" classpathref="classpath" fork="true"/>
 	</target>
@@ -42,33 +75,35 @@
 		</javac>
 	</target>
 
-  	<target name="dist" description="Build a jar file and increment revision number" depends="build">
-        <propertyfile file="version.properties">
-	        <entry key="build.revision.number" type="int" operation="+" value="1" pattern="00"/>    
-	    </propertyfile>
-  		<propertyfile file="version.properties">
-  		    <entry key="build.major.number" type="int" value="0" />    
-  		</propertyfile>
-   		<propertyfile file="version.properties">
-  		    <entry key="build.minor.number" type="int" value="0"/>    
-  		</propertyfile>
+	<target name="dist" description="Build a jar file and increment revision number" depends="build">
+		<propertyfile file="version.properties">
+			<entry key="build.revision.number" type="int" operation="+" value="1" pattern="00"/>    
+		</propertyfile>
+	  	<propertyfile file="version.properties">
+	  		<entry key="build.major.number" type="int" value="0" />    
+	  	</propertyfile>
+	   	<propertyfile file="version.properties">
+		    <entry key="build.minor.number" type="int" value="0"/>    
+		</propertyfile>
 	    <property file="version.properties"/>
 	    <propertyfile file="version.properties">
-	        <entry  key="build.number" value="${build.major.number}.${build.minor.number}.${build.revision.number}"/>
-	    </propertyfile>
-	                
-	    <mkdir dir="${dist.dir}" />
-	    <jar destfile="${dist.dir}/${jar.name}" basedir="${build.classes.dir}" >
-	    	<manifest>
-	        	<attribute name="Main-Class" value="${main.class}"/>
-	            <attribute name="Class-Path" value="." />
-	        </manifest>  
-	        <fileset dir="${basedir}">
-	        	<include name="application.properties"/>
-	            <include name="version.properties"/>
-	        </fileset>
-	    </jar>
-  	</target>
+		    <entry  key="build.number" value="${build.major.number}.${build.minor.number}.${build.revision.number}"/>
+		</propertyfile>
+		                
+		<mkdir dir="${dist.dir}" />
+		<jar destfile="${dist.dir}/${jar.name}" basedir="${build.classes.dir}" >
+		    <manifest>
+		    	<attribute name="Main-Class" value="${main.class}"/>
+		        <attribute name="Class-Path" value="." />
+		    </manifest>  
+		    <fileset dir="${basedir}">
+		    	<include name="application.properties"/>
+		        <include name="version.properties"/>
+		        <include name="etc/"/>
+		    </fileset>
+		    <zipgroupfileset dir="${lib.dir}" includes="**/*.jar" />
+		</jar>
+	</target>
 	
   	<target name="jrun" description="Run the jar file" depends="dist">
     	<java jar="${dist.dir}/${jar.name}" fork="true"/>
