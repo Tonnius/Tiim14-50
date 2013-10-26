@@ -74,7 +74,20 @@
 	</target>
 	
 	<target name="run" description="Run the application" depends="build">
-		<java classname="${main.class}" classpathref="classpath" fork="yes" />
+		<java
+		          classname="${main.class}"
+		            classpathref="classpath"
+		            fork="yes">
+		          <jvmarg value="-Xdebug" />
+		          <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=1044" />
+		        </java>
+<!--		<java classname="${main.class}" classpathref="classpath" fork="yes" /> -->
+	</target>
+	
+	<target name="runc" depends="build" description="Run the application (console)">
+		<java classname="${main.class}" classpathref="classpath" fork="yes">
+			<arg value="console" />
+		</java>
 	</target>
 	
 	<target name="build" description="Build the system">
@@ -90,9 +103,7 @@
 			compiler="modern"
 			target="1.7"
 			source="1.7"
-			includeantruntime="false"
-		>
-		</javac>
+			includeantruntime="false" />
 	</target>
 
 	<target name="dist" description="Build a jar file and increment revision number" depends="build">
