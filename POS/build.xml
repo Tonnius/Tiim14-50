@@ -21,25 +21,6 @@
 		</fileset>
   	</path>
 	
-	<path id="run.classpath">
-	    <pathelement location="${basedir}"/>
-	    <pathelement location="${build.classes.dir}"/>
-	    <pathelement location="${conf.dir}"/> 
-		<fileset dir="${lib}">
-	    	<include name="*.jar"/>
-	    </fileset>
-    </path>
-	        
-	<path id="test.classpath">
-	    <fileset dir="${lib}">
-		    <include name="*.jar"/>
-	    </fileset>
-	    <pathelement path="${build.classes.dir}/" />
-	    <pathelement path="${build.test.dir}/" />
-	    <pathelement location="${conf.dir}"/>
-	    <pathelement location="${basedir}"/>
-	</path>
-	
 	<macrodef name="git">
 			<attribute name="command" />
 			<attribute name="dir" default="" />
@@ -93,13 +74,7 @@
 	</target>
 	
 	<target name="run" description="Run the application" depends="build">
-		<java
-			classname="${main.class}"
-		    classpathref="run.classpath"
-		    fork="yes">
-		<jvmarg value="-Xdebug" />
-		<jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=1044" />
-		</java>
+		<java classname="${main.class}" classpathref="classpath" fork="yes" />
 	</target>
 	
 	<target name="build" description="Build the system">
@@ -154,12 +129,6 @@
     	<java jar="${dist.dir}/${jar.name}" fork="true"/>
   	</target>
 
-	<target name="runc" depends="build" description="Run the application (console)">
-	    <java classname="${main.class}" classpathref="test.classpath" fork="yes">
-	    	<arg value="console" />
-	    </java>
-	</target>
-	    	
   	<target name="clean" description="Clean up - delete the ${build} directory tree">
     	<delete dir="${build.dir}"/>
 	</target>
