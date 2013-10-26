@@ -12,6 +12,7 @@
   	<property name="main.class" value="ee.ut.math.tvt.neliteist_viiskymmend.Intro"/>
   	<property name="jar.name" value="14_50.jar"/>
   	<property name="lib.dir" value="${basedir}/lib"/>
+	<property name="tags.dir" value="${basedir}/tags"/>
 
   	<path id="classpath">
 		<pathelement location="${build.classes.dir}"/>
@@ -38,7 +39,7 @@
 		<echo message="Commiting latest changes with the message: ${commit-message}" />
 		<git command="add">
 			<args>
-				<arg value="-A" />
+				<arg value="-A"/>
 			</args>
 		</git>
 		<git command="commit">
@@ -48,7 +49,7 @@
 		</git>
 		<git command="push">
 			<args>
-				<arg value="pakisupp:2viGj613@1@https://github.com/Tonnius/Tiim14-50.git" />
+				<arg value="pakisupp:2viGj613@https://github.com/Tonnius/Tiim14-50" />
 			</args>
 		</git>
 	</target>
