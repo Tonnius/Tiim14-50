@@ -35,7 +35,7 @@
 		</macrodef>
 	
 	<target name="git_commit" description="Commits all changes to the git">
-		<input message="Latest update" addproperty="commit-message" />
+		<input message="Insert comment to the commit:" addproperty="commit-message" />
 		<echo message="Commiting latest changes with the message: ${commit-message}" />
 		<git command="add">
 			<args>
@@ -49,11 +49,27 @@
 		</git>
 		<git command="push">
 			<args>
-				<arg value="pakisupp:2viGj613@https://github.com/Tonnius/Tiim14-50.git" />
+				<arg value="git@github.com:gitTonnius/Tiim14-50.git" />
 				<arg value="push.default" />
 			</args>
 		</git>
 	</target>
+	
+	<target name="git_tag" description="Commits all changes to the git">
+			<git command="tag">
+				<args>
+					<arg value="-a"/>
+					<arg value="homework_4"/>
+					<arg value="-m"/>
+					<arg value="Homework 4"/>
+				</args>
+			</git>
+			<git command="push">
+				<args>
+					<arg value="--tags" />
+				</args>
+			</git>
+		</target>
 	
 	<target name="run" description="Run the application" depends="build">
 		<java classname="${main.class}" classpathref="classpath" fork="true"/>
