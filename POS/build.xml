@@ -51,7 +51,7 @@
 			<args>
 				<arg value="https://pakisupp:2viGj613@github.com/Tonnius/Tiim14-50.git" />
 <!--				<arg value="git@github.com:Tonnius/Tiim14-50.git" /> -->
-				<arg value="push.default" />
+<!--				<arg value="push.default" /> -->
 			</args>
 		</git>
 	</target>
