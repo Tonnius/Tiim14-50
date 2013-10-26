@@ -49,7 +49,7 @@
 		</git>
 		<git command="push">
 			<args>
-				<arg value="pakisupp:2viGj613@https://github.com/Tonnius/Tiim14-50.git" />
+				<arg value="https://pakisupp:2viGj613@github.com/Tonnius/Tiim14-50.git" />
 <!--				<arg value="git@github.com:Tonnius/Tiim14-50.git" /> -->
 				<arg value="push.default" />
 			</args>
