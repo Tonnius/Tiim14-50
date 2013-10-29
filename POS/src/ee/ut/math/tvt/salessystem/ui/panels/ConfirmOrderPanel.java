@@ -13,8 +13,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import org.apache.log4j.Logger;
-
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
 import ee.ut.math.tvt.salessystem.ui.popups.ErrorPopup;
 
@@ -77,8 +75,8 @@ public class ConfirmOrderPanel extends JPanel {
 		// calculate change amount when paymentField loses focus
 		paymentField.addFocusListener(new FocusListener() {
 			public void focusLost(FocusEvent e) {
-				changeField.setText(Double.toString(Math.round((Double
-						.parseDouble(paymentField.getText()) - orderSum) * 100) / 100));
+				changeField.setText(Double.toString(
+						Double.parseDouble(paymentField.getText()) - orderSum));
 			}
 
 			public void focusGained(FocusEvent e) {
@@ -89,11 +87,9 @@ public class ConfirmOrderPanel extends JPanel {
 		for (int i = 0; i < model.getCurrentPurchaseTableModel().getTableRows()
 				.size(); i++) {
 			orderSum += model.getCurrentPurchaseTableModel().getTableRows()
-					.get(i).getPrice()
-					* model.getCurrentPurchaseTableModel().getTableRows()
-							.get(i).getQuantity();
+					.get(i).getSum();
 		}
-		sumField.setText(Double.toString(Math.round(orderSum * 100) / 100));
+		sumField.setText(Double.toString(orderSum));
 		changeField.setText("");
 		// add fields to panel
 		add(new JLabel("Order sum:"));
