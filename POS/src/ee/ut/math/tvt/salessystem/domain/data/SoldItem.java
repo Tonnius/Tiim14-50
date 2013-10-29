@@ -1,5 +1,12 @@
 package ee.ut.math.tvt.salessystem.domain.data;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 
 
 /**
@@ -7,11 +14,21 @@ package ee.ut.math.tvt.salessystem.domain.data;
  */
 public class SoldItem implements Cloneable, DisplayableItem {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+	
+	@ManyToOne()
+	@JoinColumn(name = "STOCKITEM_ID", nullable = false)
     private StockItem stockItem;
     
+	@Column(name = "name")
     private String name;
+	
+	@Column(name = "quantity")
     private Integer quantity;
+	
+	@Column(name = "itemprice")
     private double price;
     
     public SoldItem(StockItem stockItem, int quantity) {
