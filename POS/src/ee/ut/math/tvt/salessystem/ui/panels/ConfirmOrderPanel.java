@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.util.NoSuchElementException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -16,15 +15,12 @@ import javax.swing.JTextField;
 
 import org.apache.log4j.Logger;
 
-import ee.ut.math.tvt.neliteist_viiskymmend.Intro;
-import ee.ut.math.tvt.salessystem.domain.data.StockItem;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
 import ee.ut.math.tvt.salessystem.ui.popups.ErrorPopup;
-import ee.ut.math.tvt.salessystem.ui.model.PurchaseInfoTableModel;
 
 public class ConfirmOrderPanel extends JPanel {
 
-	private SalesSystemModel model;
+	private static final long serialVersionUID = 1L;
 
 	private static JTextField sumField;
 	private static JTextField paymentField;
@@ -38,7 +34,6 @@ public class ConfirmOrderPanel extends JPanel {
 
 	public ConfirmOrderPanel(final SalesSystemModel model,
 			final JDialog popupDialog) {
-		this.model = model;
 		setLayout(new GridLayout(4, 2));
 		setBorder(BorderFactory.createTitledBorder("Confirm order: "));
 
@@ -54,7 +49,7 @@ public class ConfirmOrderPanel extends JPanel {
 				try {
 					if (orderSum > Double.parseDouble(paymentField.getText())) {
 						ErrorPopup
-								.createPopup("The amount payed is less than the charged amount!");
+								.createPopup("The amount paid is less than the charged amount!");
 					} else {
 						returnValue = true;
 						popupDialog.dispose();

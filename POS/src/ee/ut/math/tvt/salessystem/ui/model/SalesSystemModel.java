@@ -18,7 +18,8 @@ public class SalesSystemModel {
     // Order history table model
     private OrderHistoryTableModel orderHistoryTableModel;
 
-    private final SalesDomainController domainController;
+    @SuppressWarnings("unused")
+	private final SalesDomainController domainController;
 
     /**
      * Construct application model.
