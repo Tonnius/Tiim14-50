@@ -11,7 +11,14 @@
   	<property name="dist.dir" value="${build.dir}/jar"/>
   	<property name="main.class" value="ee.ut.math.tvt.neliteist_viiskymmend.Intro"/>
   	<property name="jar.name" value="14_50.jar"/>
-  	<property name="lib.dir" value="${basedir}/lib"/>
+	<property name="lib.dir" value="${basedir}/lib"/>
+
+	<!-- database variables -->
+	<property name="data.dir"	value="${basedir}/data"/>
+	<property name="db.file"	value="${data.dir}/POSdb"/>
+	<property name="db.alias"	value="POS"/>
+	<property name="db.url" 	value="jdbc:hsqldb:hsql://localhost/POS"/>
+	<property name="lib.hibernate.dir"   value="${lib.dir}/hibernate"/>
 	<property name="tags.dir" value="${basedir}/tags"/>
 
   	<path id="classpath">
@@ -19,6 +26,10 @@
 	    <pathelement location="${conf.dir}"/>
 	    <fileset dir="${lib.dir}" includes="**/*.jar">
 		</fileset>
+  		
+  		<fileset dir="${lib.hibernate.dir}">
+  		             <include name="*.jar"/>
+  		</fileset>
   	</path>
 	
 	<macrodef name="git">
@@ -139,6 +150,26 @@
   	<target name="jrun" description="Run the jar file" depends="dist">
     	<java jar="${dist.dir}/${jar.name}" fork="true"/>
   	</target>
+	
+	<target name="dbmanager" description="Start the HSQLDB manager">
+	        <java
+	            classname="org.hsqldb.util.DatabaseManagerSwing"
+	            classpathref="classpath"
+	            fork="yes"
+	        >
+	            <arg line="--user sa --url ${db.url}" />
+	        </java>
+	    </target>
+
+	    <target name="startdb" description="Start the HSQLDB with the default params">
+	        <java
+	            classname="org.hsqldb.Server"
+	            classpathref="classpath"
+	            fork="yes"
+	        >
+	            <arg line="-database.0 '${db.file}' -dbname.0 '${db.alias}'" /> 
+	        </java>
+	</target>
 
   	<target name="clean" description="Clean up - delete the ${build} directory tree">
     	<delete dir="${build.dir}"/>
