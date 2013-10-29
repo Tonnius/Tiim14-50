@@ -83,7 +83,6 @@ public class ModifyItemPanel extends JPanel {
 							Double.parseDouble(priceField.getText()),
 							Integer.parseInt(quantityField.getText()));
 					model.getWarehouseTableModel().updateItem(stockItem);
-					nameField.setText("");
 					fillDialogFields();
 				}
 				catch (NumberFormatException ex) {
