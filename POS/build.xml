@@ -32,18 +32,39 @@
   		</fileset>
   	</path>
 	
+	<path id="run.classpath">
+		<pathelement location="${build.classes.dir}"/>
+	    <!-- configuration -->
+	    <pathelement location="${conf.dir}"/>
+	    <fileset dir="${lib.dir}">
+	    	<include name="*.jar"/>
+	    </fileset>
+        <fileset dir="${lib.hibernate.dir}">
+	        <include name="*.jar"/>
+	    </fileset>
+	</path>
+	
+	<path id="compile.classpath">
+		<fileset dir="${lib.dir}">
+	    	<include name="*.jar"/>
+	    </fileset>
+		<fileset dir="${lib.hibernate.dir}">
+			<include name="*.jar"/>
+		</fileset>
+	</path>
+	
 	<macrodef name="git">
-			<attribute name="command" />
-			<attribute name="dir" default="" />
-			<element name="args" optional="true" />
-			<sequential>
-				<echo message="git @{command}" />
-				<exec executable="git" dir="@{dir}">
-					<arg value="@{command}" />
-					<args/>
-				</exec>
-			</sequential>
-		</macrodef>
+		<attribute name="command" />
+		<attribute name="dir" default="" />
+		<element name="args" optional="true" />
+		<sequential>
+			<echo message="git @{command}" />
+			<exec executable="git" dir="@{dir}">
+				<arg value="@{command}" />
+				<args/>
+			</exec>
+		</sequential>
+	</macrodef>
 	
 	<target name="git_commit" description="Commits all changes to the git">
 		<input message="Insert comment to the commit:" addproperty="commit-message" />
@@ -86,17 +107,16 @@
 	
 	<target name="run" description="Run the application" depends="build">
 		<java
-		          classname="${main.class}"
-		            classpathref="classpath"
-		            fork="yes">
-		          <jvmarg value="-Xdebug" />
-		          <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=1044" />
-		        </java>
-<!--		<java classname="${main.class}" classpathref="classpath" fork="yes" /> -->
+	        classname="${main.class}"
+	        classpathref="run.classpath"
+	        fork="yes">
+	        <jvmarg value="-Xdebug" />
+	        <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=1044" />
+	    </java>
 	</target>
 	
 	<target name="runc" depends="build" description="Run the application (console)">
-		<java classname="${main.class}" classpathref="classpath" fork="yes">
+		<java classname="${main.class}" classpathref="run.classpath" fork="yes">
 			<arg value="console" />
 		</java>
 	</target>
@@ -152,23 +172,23 @@
   	</target>
 	
 	<target name="dbmanager" description="Start the HSQLDB manager">
-	        <java
-	            classname="org.hsqldb.util.DatabaseManagerSwing"
-	            classpathref="classpath"
-	            fork="yes"
-	        >
-	            <arg line="--user sa --url ${db.url}" />
-	        </java>
-	    </target>
+		<java
+	    	classname="org.hsqldb.util.DatabaseManagerSwing"
+	        classpathref="run.classpath"
+	        fork="yes"
+	    >
+	    	<arg line="--user sa --url ${db.url}" />
+	    </java>
+	</target>
 
-	    <target name="startdb" description="Start the HSQLDB with the default params">
-	        <java
-	            classname="org.hsqldb.Server"
-	            classpathref="classpath"
-	            fork="yes"
-	        >
-	            <arg line="-database.0 '${db.file}' -dbname.0 '${db.alias}'" /> 
-	        </java>
+	<target name="startdb" description="Start the HSQLDB with the default params">
+		<java
+	    	classname="org.hsqldb.Server"
+	        classpathref="run.classpath"
+	        fork="yes"
+	    >
+	    	<arg line="-database.0 '${db.file}' -dbname.0 '${db.alias}'" /> 
+	    </java>
 	</target>
 
   	<target name="clean" description="Clean up - delete the ${build} directory tree">
