@@ -4,7 +4,6 @@
   	<!-- set global properties for this build -->
   	<property file="build.properties"/>
   	<property name="src.dir" location="src"/>
-  	<property name="lib" value="lib"/>
   	<property name="build.dir" value="${basedir}/build"/>
   	<property name="build.classes.dir" value="${build.dir}/classes"/>
   	<property name="conf.dir" value="${basedir}/conf"/>
@@ -19,6 +18,7 @@
 	<property name="db.alias"	value="POS"/>
 	<property name="db.url" 	value="jdbc:hsqldb:hsql://localhost/POS"/>
 	<property name="lib.hibernate.dir"   value="${lib.dir}/hibernate"/>
+	<property name="lib.hsqldb.dir"   value="${lib.dir}/hsqldb"/>
 	<property name="tags.dir" value="${basedir}/tags"/>
 
 	<path id="run.classpath">
@@ -31,6 +31,9 @@
         <fileset dir="${lib.hibernate.dir}">
 	        <include name="*.jar"/>
 	    </fileset>
+		<fileset dir="${lib.hsqldb.dir}">
+			<include name="*.jar"/>
+		</fileset>
 	</path>
 	
 	<path id="compile.classpath">
@@ -38,6 +41,9 @@
 	    	<include name="*.jar"/>
 	    </fileset>
 		<fileset dir="${lib.hibernate.dir}">
+			<include name="*.jar"/>
+		</fileset>
+		<fileset dir="${lib.hsqldb.dir}">
 			<include name="*.jar"/>
 		</fileset>
 	</path>
@@ -98,7 +104,8 @@
 		<java
 	        classname="${main.class}"
 	        classpathref="run.classpath"
-	        fork="yes">
+	        fork="yes"
+		>
 	        <jvmarg value="-Xdebug" />
 	        <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=1044" />
 	    </java>
@@ -150,6 +157,7 @@
 		    <fileset dir="${basedir}">
 		    	<include name="application.properties"/>
 		        <include name="version.properties"/>
+		    	<include name="${conf.dir}"/>
 		        <include name="etc/"/>
 		    </fileset>
 		    <zipgroupfileset dir="${lib.dir}" includes="**/*.jar" />
@@ -157,14 +165,14 @@
 	</target>
 	
   	<target name="jrun" description="Run the jar file" depends="dist">
-    	<java jar="${dist.dir}/${jar.name}" fork="true"/>
+    	<java jar="${dist.dir}/${jar.name}" classpathref="run.classpath" fork="true" />
   	</target>
 	
 	<target name="dbmanager" description="Start the HSQLDB manager">
 		<java
 	    	classname="org.hsqldb.util.DatabaseManagerSwing"
 	        classpathref="run.classpath"
-	        fork="yes"
+			fork="yes"
 	    >
 	    	<arg line="--user sa --url ${db.url}" />
 	    </java>
