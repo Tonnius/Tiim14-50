@@ -38,16 +38,7 @@ public class Order implements Cloneable, DisplayableItem{
 	public Order(Date date, List<SoldItem> orderedItems) {
 		this.id = null;
 		this.date = date;
-		final StringBuffer buffer = new StringBuffer();
-		buffer.append("ID\t");
-		buffer.append("Name\t");
-		buffer.append("Price\t");
-		buffer.append("Quantity\t");
-		buffer.append("Sum\n");
-		for (final SoldItem item : orderedItems) {
-			buffer.append(item.toString());
-		}
-		this.orderedItems = buffer.toString();
+		this.setOrderedItems(orderedItems);
 		this.totalPrice = 0;
 		for (final SoldItem item : orderedItems) {
 			totalPrice = totalPrice + item.getPrice()*item.getQuantity();
@@ -69,6 +60,19 @@ public class Order implements Cloneable, DisplayableItem{
 	
 	public String getOrderedItems() {
 		return orderedItems;
+	}
+	
+	public void setOrderedItems(List<SoldItem> orderedItems) {
+		final StringBuffer buffer = new StringBuffer();
+		buffer.append("ID\t");
+		buffer.append("Name\t");
+		buffer.append("Price\t");
+		buffer.append("Quantity\t");
+		buffer.append("Sum\n");
+		for (final SoldItem item : orderedItems) {
+			buffer.append(item.toString());
+		}
+		this.orderedItems = buffer.toString();
 	}
 
 	

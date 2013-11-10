@@ -91,6 +91,11 @@ public class SalesDomainControllerImpl implements SalesDomainController {
 		if (model == null) {
 			@SuppressWarnings("unchecked")
 			List<Order> dataset = session.createQuery("from Order").list();
+			for (int i = 0; i < dataset.size(); i++) {
+				long id = dataset.get(i).getId();
+				List<SoldItem> orderedItems = session.createQuery("from SoldItem where sale_id = " + id).list();
+				dataset.get(i).setOrderedItems(orderedItems);
+			}
 		
 			return dataset;
 		}
