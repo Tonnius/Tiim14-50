@@ -25,6 +25,10 @@ public class SoldItem implements Cloneable, DisplayableItem {
 	@ManyToOne()
 	@JoinColumn(name = "STOCKITEM_ID", nullable = false)
     private StockItem stockItem;
+	
+	@ManyToOne()
+	@JoinColumn(name = "SALE_ID")
+	private Order order;
     
 	@Column(name = "name")
     private String name;
@@ -38,7 +42,7 @@ public class SoldItem implements Cloneable, DisplayableItem {
 	
 	
 	public SoldItem() {
-		this.id = 0L;
+		this.id = null;
 		this.stockItem = null;
 		this.name = "";
 		this.price = 0;
@@ -46,7 +50,7 @@ public class SoldItem implements Cloneable, DisplayableItem {
 	}
 	
     public SoldItem(StockItem stockItem, int quantity) {
-    	this.id = stockItem.getId();
+    	this.id = null;
         this.stockItem = stockItem;
         this.name = stockItem.getName();
         this.price = stockItem.getPrice();
@@ -97,6 +101,10 @@ public class SoldItem implements Cloneable, DisplayableItem {
 
     public void setStockItem(StockItem stockItem) {
         this.stockItem = stockItem;
+    }
+    
+    public void setOrder(Order order) {
+    	this.order = order;
     }
     
     public String toString() {

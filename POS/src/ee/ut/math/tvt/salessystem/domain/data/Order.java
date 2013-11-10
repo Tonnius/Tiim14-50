@@ -26,7 +26,7 @@ public class Order implements Cloneable, DisplayableItem{
 	private double totalPrice;
 	
 	@Transient
-	private String orderedItems;
+	private List<SoldItem> orderedItems;
 	
 	public Order() {
 		this.id = null;
@@ -38,7 +38,7 @@ public class Order implements Cloneable, DisplayableItem{
 	public Order(Date date, List<SoldItem> orderedItems) {
 		this.id = null;
 		this.date = date;
-		this.setOrderedItems(orderedItems);
+		this.orderedItems = orderedItems;
 		this.totalPrice = 0;
 		for (final SoldItem item : orderedItems) {
 			totalPrice = totalPrice + item.getPrice()*item.getQuantity();
@@ -58,21 +58,12 @@ public class Order implements Cloneable, DisplayableItem{
 		return totalPrice;
 	}
 	
-	public String getOrderedItems() {
+	public List<SoldItem> getOrderedItems() {
 		return orderedItems;
 	}
 	
 	public void setOrderedItems(List<SoldItem> orderedItems) {
-		final StringBuffer buffer = new StringBuffer();
-		buffer.append("ID\t");
-		buffer.append("Name\t");
-		buffer.append("Price\t");
-		buffer.append("Quantity\t");
-		buffer.append("Sum\n");
-		for (final SoldItem item : orderedItems) {
-			buffer.append(item.toString());
-		}
-		this.orderedItems = buffer.toString();
+		this.orderedItems = orderedItems;
 	}
 
 	

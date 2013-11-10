@@ -7,6 +7,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JDialog;
@@ -19,6 +20,7 @@ import javax.swing.table.JTableHeader;
 
 import com.jgoodies.looks.windows.WindowsLookAndFeel;
 
+import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
 import ee.ut.math.tvt.salessystem.ui.SalesSystemUI;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
 
@@ -88,9 +90,21 @@ public class HistoryTab {
 				panel.setLayout(new GridBagLayout());
 
 				panel.setBorder(BorderFactory.createTitledBorder("Order info: "));
+			
+				@SuppressWarnings("unchecked")
+				List<SoldItem> orderedItems = (List<SoldItem>) model.getOrderHistoryTableModel().getValueAt(param, 2);
+				final StringBuffer buffer = new StringBuffer();
+				buffer.append("ID\t");
+				buffer.append("Name\t");
+				buffer.append("Price\t");
+				buffer.append("Quantity\t");
+				buffer.append("Sum\n");
+				for (final SoldItem item : orderedItems) {
+					buffer.append(item.toString());
+				}
 				
 				JTextArea orderInfo = new JTextArea();
-				orderInfo.setText((String) model.getOrderHistoryTableModel().getValueAt(param, 2));
+				orderInfo.setText(buffer.toString());
 				orderInfo.setEditable(false);
 				orderInfo.setBorder(BorderFactory.createCompoundBorder(
 							BorderFactory.createLineBorder(Color.BLACK), 

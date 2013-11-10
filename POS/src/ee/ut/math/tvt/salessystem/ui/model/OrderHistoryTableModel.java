@@ -1,8 +1,11 @@
 package ee.ut.math.tvt.salessystem.ui.model;
 
+import java.util.List;
+
 import org.hibernate.Session;
 
 import ee.ut.math.tvt.salessystem.domain.data.Order;
+import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
 import ee.ut.math.tvt.salessystem.util.HibernateUtil;
 
 public class OrderHistoryTableModel extends SalesSystemTableModel<Order> {
@@ -33,6 +36,15 @@ public class OrderHistoryTableModel extends SalesSystemTableModel<Order> {
 		session.getTransaction().begin();
 		session.saveOrUpdate(order);
 		session.getTransaction().commit();
+		List<SoldItem> orderedItems = order.getOrderedItems();
+		for (final SoldItem item : orderedItems) {
+			if (item.getId() == null) {
+				item.setOrder(order);
+				session.getTransaction().begin();
+				session.saveOrUpdate(item);
+				session.getTransaction().commit();
+			}
+		}
 		fireTableDataChanged();
 	}
 	
