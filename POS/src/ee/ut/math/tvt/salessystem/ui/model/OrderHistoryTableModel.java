@@ -1,10 +1,15 @@
 package ee.ut.math.tvt.salessystem.ui.model;
 
+import org.hibernate.Session;
+
 import ee.ut.math.tvt.salessystem.domain.data.Order;
+import ee.ut.math.tvt.salessystem.util.HibernateUtil;
 
 public class OrderHistoryTableModel extends SalesSystemTableModel<Order> {
 
 	private static final long serialVersionUID = 1L;
+	
+	private Session session = HibernateUtil.currentSession();
 
 	public OrderHistoryTableModel() {
 		super(new String[] {"Date", "Total price"});
@@ -25,6 +30,9 @@ public class OrderHistoryTableModel extends SalesSystemTableModel<Order> {
 	
 	public void addOrder(Order order) {
 		rows.add(order);
+		session.getTransaction().begin();
+		session.saveOrUpdate(order);
+		session.getTransaction().commit();
 		fireTableDataChanged();
 	}
 	

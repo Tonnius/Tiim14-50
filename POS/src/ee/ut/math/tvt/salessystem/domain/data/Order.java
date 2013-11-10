@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "SALES")
@@ -16,7 +17,7 @@ public class Order implements Cloneable, DisplayableItem{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id; //unused
+	private Long id;
 	
 	@Column(name = "TIME")
 	private Date date;
@@ -24,7 +25,15 @@ public class Order implements Cloneable, DisplayableItem{
 	@Column(name = "SALE_SUM")
 	private double totalPrice;
 	
+	@Transient
 	private String orderedItems;
+	
+	public Order() {
+		this.id = null;
+		this.date = new Date();
+		this.totalPrice = 0;
+		this.orderedItems = null;
+	}
 
 	public Order(Date date, List<SoldItem> orderedItems) {
 		this.id = null;
