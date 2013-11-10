@@ -6,8 +6,10 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Session;
 
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
+import ee.ut.math.tvt.salessystem.util.HibernateUtil;
 
 /**
  * Stock item table model.
@@ -17,6 +19,8 @@ public class StockTableModel extends SalesSystemTableModel<StockItem> {
 
 	private static final Logger log = Logger.getLogger(StockTableModel.class);
 
+	private Session session = HibernateUtil.currentSession();
+	
 	public StockTableModel() {
 		super(new String[] {"Id", "Name", "Price", "Quantity"});
 	}
@@ -45,13 +49,20 @@ public class StockTableModel extends SalesSystemTableModel<StockItem> {
 		try {
 			StockItem item = getItemById(stockItem.getId());
 			item.setQuantity(item.getQuantity() + stockItem.getQuantity());
+			session.getTransaction().begin();
+			session.saveOrUpdate(item);
+			session.getTransaction().commit();
 			log.debug("Found existing item " + stockItem.getName()
-					+ " increased quantity by " + stockItem.getQuantity());
+					+ " increased quantity by " + stockItem.getQuantity());		
 		}
 		catch (NoSuchElementException e) {
 			rows.add(stockItem);
+			session.getTransaction().begin();
+			stockItem.setId(null);
+			session.saveOrUpdate(stockItem);
+			session.getTransaction().commit();
 			log.debug("Added " + stockItem.getName()
-					+ " quantity of " + stockItem.getQuantity());
+					+ " quantity of " + stockItem.getQuantity());		
 		}
 		fireTableDataChanged();
 	}
@@ -63,6 +74,9 @@ public class StockTableModel extends SalesSystemTableModel<StockItem> {
 		item.setPrice(stockItem.getPrice());
 		item.setDescription(stockItem.getDescription());
 		item.setQuantity(stockItem.getQuantity());
+		session.getTransaction().begin();
+		session.saveOrUpdate(item);
+		session.getTransaction().commit();
 		log.debug("Altered item with barcode " + stockItem.getId());
 		fireTableDataChanged();
 	}
