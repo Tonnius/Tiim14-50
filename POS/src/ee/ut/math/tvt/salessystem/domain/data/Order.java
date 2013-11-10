@@ -3,12 +3,25 @@ package ee.ut.math.tvt.salessystem.domain.data;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "SALES")
 public class Order implements Cloneable, DisplayableItem{
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id; //unused
 	
+	@Column(name = "TIME")
 	private Date date;
 	
+	@Column(name = "SALE_SUM")
 	private double totalPrice;
 	
 	private String orderedItems;
