@@ -1,2 +1,4 @@
 POS/bin
 POS/data/POSdb.lck
+POS/data/POSdb.log
+POS/data/POSdb.properties
