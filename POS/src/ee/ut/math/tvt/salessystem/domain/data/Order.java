@@ -65,7 +65,5 @@ public class Order implements Cloneable, DisplayableItem{
 	public void setOrderedItems(List<SoldItem> orderedItems) {
 		this.orderedItems = orderedItems;
 	}
-
-	
 	
 }

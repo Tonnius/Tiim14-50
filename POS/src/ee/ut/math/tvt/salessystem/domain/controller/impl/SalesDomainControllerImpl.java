@@ -87,9 +87,10 @@ public class SalesDomainControllerImpl implements SalesDomainController {
 	    HibernateUtil.closeSession();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Order> loadOrderHistory() {
 		if (model == null) {
-			@SuppressWarnings("unchecked")
+			
 			List<Order> dataset = session.createQuery("from Order").list();
 			for (int i = 0; i < dataset.size(); i++) {
 				long id = dataset.get(i).getId();

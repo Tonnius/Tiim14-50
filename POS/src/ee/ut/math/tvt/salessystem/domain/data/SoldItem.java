@@ -107,6 +107,10 @@ public class SoldItem implements Cloneable, DisplayableItem {
     	this.order = order;
     }
     
+	public Object getOrder() {
+		return this.order;
+	}
+    
     public String toString() {
     	StringBuffer buffer = new StringBuffer();
     	buffer.append(getId() + "\t");
