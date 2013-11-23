@@ -67,6 +67,14 @@ public class StockTableModel extends SalesSystemTableModel<StockItem> {
 		fireTableDataChanged();
 	}
 	
+	public StockItem getItemByName(String name) {
+        for (StockItem item : rows) {
+                if (item.getName().equals(name))
+        return item;
+        }
+        throw new NoSuchElementException();
+	}
+	
 	// modify item info in stock table
 	public void updateItem(final StockItem stockItem) {
 		StockItem item = getItemById(stockItem.getId());
