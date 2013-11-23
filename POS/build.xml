@@ -4,13 +4,16 @@
   	<!-- set global properties for this build -->
   	<property file="build.properties"/>
   	<property name="src.dir" location="src"/>
+	<property name="test.dir" value="${basedir}/test"/>
   	<property name="build.dir" value="${basedir}/build"/>
   	<property name="build.classes.dir" value="${build.dir}/classes"/>
+	<property name="build.test.dir" value="${build.dir}/test"/>
   	<property name="conf.dir" value="${basedir}/conf"/>
   	<property name="dist.dir" value="${build.dir}/jar"/>
   	<property name="main.class" value="ee.ut.math.tvt.neliteist_viiskymmend.Intro"/>
   	<property name="jar.name" value="14_50.jar"/>
 	<property name="lib.dir" value="${basedir}/lib"/>
+	
 
 	<!-- database variables -->
 	<property name="data.dir"	value="${basedir}/data"/>
@@ -48,6 +51,21 @@
 		</fileset>
 	</path>
 	
+	<path id="test.classpath">
+		<fileset dir="${lib.dir}">
+			<include name="*.jar"/>
+		</fileset>
+		<fileset dir="${lib.hibernate.dir}">
+			<include name="*.jar"/>
+		</fileset>
+		<fileset dir="${lib.hsqldb.dir}">
+			<include name="*.jar"/>
+		</fileset>
+	    <pathelement path="${build.classes.dir}/" />
+	    <pathelement path="${build.test.dir}/" />
+	    <pathelement location="${basedir}"/>
+    </path>
+
 	<macrodef name="git">
 		<attribute name="command" />
 		<attribute name="dir" default="" />
@@ -190,6 +208,35 @@
 
   	<target name="clean" description="Clean up - delete the ${build} directory tree">
     	<delete dir="${build.dir}"/>
+	</target>
+	
+	<target name="build_tests" depends="build" description="Build the system">
+		<mkdir dir="${build.test.dir}"/>
+		<javac
+	    	srcdir="${test.dir}"
+	        destdir="${build.test.dir}"
+	        debug="true"
+	        debuglevel="lines,vars,source"
+	        encoding="utf-8"
+	        compiler="modern"
+	        target="1.7"
+	        source="1.7"
+	        classpathref="compile.classpath"
+		>
+			<classpath>
+				<pathelement path="${build.classes.dir}" />
+			</classpath>
+		</javac>
+	</target>
+	
+	<target name="test" depends="build_tests" description="Run the template application">
+		<junit>
+			<classpath refid="test.classpath" />
+			<formatter type="brief" usefile="false" />
+			<batchtest>
+				<fileset dir="${build.test.dir}" includes="**/*.class" />
+			</batchtest>
+		</junit>
 	</target>
 
 </project>
