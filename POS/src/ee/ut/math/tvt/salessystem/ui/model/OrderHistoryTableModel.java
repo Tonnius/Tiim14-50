@@ -19,7 +19,7 @@ public class OrderHistoryTableModel extends SalesSystemTableModel<Order> {
 	}
 
 	@Override
-	protected Object getColumnValue(Order item, int columnIndex) {
+	public Object getColumnValue(Order item, int columnIndex) {
 		switch (columnIndex) {
 		case 0:
 			return item.getDate();
