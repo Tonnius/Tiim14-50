@@ -14,7 +14,11 @@ public class StockTest {
 	public void testClone() {
 		StockItem stockClone = (StockItem) stockItem.clone();
 		
-		assertEquals(stockClone, stockItem);
+		assertEquals(stockClone.getId(), stockItem.getId());
+        assertEquals(stockClone.getName(), stockItem.getName());
+        assertEquals(stockClone.getDescription(), stockItem.getDescription());
+        assertEquals(stockClone.getPrice(), stockItem.getPrice(), 0.0001);
+        assertEquals(stockClone.getQuantity(), stockItem.getQuantity());
 	}
 	
 	@Test

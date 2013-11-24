@@ -26,7 +26,7 @@ public class StockTableModelTest {
                 model.addItem(stockItem);
                 model.addItem(stockItem2);
                 
-                assertEquals(10, model.getItemByName("Suvaline toode").getQuantity());
+                assertEquals(25, model.getItemByName("Suvaline toode").getQuantity());
         }
         
         @Test
@@ -68,7 +68,7 @@ public class StockTableModelTest {
                 model.addItem(stockItem);
                 model.addItem(stockItem2);
                 
-                assertEquals(10, model.getItemById(stockItem.getId()).getQuantity());
+                assertEquals(25, model.getItemById(stockItem.getId()).getQuantity());
         }
         
         
