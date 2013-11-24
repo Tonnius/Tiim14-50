@@ -17,10 +17,28 @@ public class OrderTest {
 	StockItem item1 = new StockItem(6L, "Cheesecake", "Delicious cheese", 12.5, 5);
 	StockItem item2 = new StockItem(7L, "Cake", "Delicious cake", 2.0, 5);
 	
-	//TODO
 	@Test
 	public void testAddSoldItem() {
+		Order order = new Order();
 		
+		// test adding item with no item list
+		SoldItem soldItem1 = new SoldItem(item1, 4);
+		
+		order.addSoldItem(soldItem1);
+		
+		assertEquals(order.getOrderedItems().size(), 1);
+		
+		// test adding item that already exists in list
+		order.addSoldItem(soldItem1);
+		
+		assertEquals((int) order.getOrderedItems().get(0).getQuantity(), 8);
+		
+		SoldItem soldItem2 = new SoldItem(item2, 4);
+		
+		// test adding new item to list
+		order.addSoldItem(soldItem2);
+		
+		assertEquals(order.getOrderedItems().size(), 2);
 	}
 	
 	@Test

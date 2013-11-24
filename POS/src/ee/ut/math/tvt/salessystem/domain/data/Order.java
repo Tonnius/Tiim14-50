@@ -1,5 +1,6 @@
 package ee.ut.math.tvt.salessystem.domain.data;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -64,6 +65,28 @@ public class Order implements Cloneable, DisplayableItem{
 	
 	public void setOrderedItems(List<SoldItem> orderedItems) {
 		this.orderedItems = orderedItems;
+	}
+	
+	public void addSoldItem(SoldItem soldItem) {
+		// if no item list yet, create list and add item
+		if (this.orderedItems == null) {
+			this.orderedItems = new ArrayList<SoldItem>();
+			this.orderedItems.add(soldItem);
+			this.totalPrice = this.totalPrice + soldItem.getPrice()*soldItem.getQuantity();
+			return;
+		} 
+		// increase quantity if item already exists in list
+		for (final SoldItem item : orderedItems) {
+			if (item.getName() == soldItem.getName()) {
+				item.setQuantity(item.getQuantity() + soldItem.getQuantity());
+				this.totalPrice = this.totalPrice + soldItem.getPrice()*soldItem.getQuantity();
+				return;
+			}
+		}
+		// if not, add it to list
+		this.orderedItems.add(soldItem);
+		this.totalPrice = this.totalPrice + soldItem.getPrice()*soldItem.getQuantity();
+		
 	}
 	
 }
