@@ -1,0 +1,122 @@
+     [java]  ==================================================================== 
+     [java]  =====                                                          ===== 
+     [java]  =====                   DATABASE CONTENTS                      ===== 
+     [java]  =====                                                          ===== 
+     [java]  ==================================================================== 
+     [java] 
+     [java] 
+     [java] 
+     [java] 
+     [java] 
+     [java]  ********************************************** 
+     [java]  **              STUDENTS                    ** 
+     [java]  ********************************************** 
+     [java] 
+     [java] 
+     [java] Found 3 students:
+     [java]  -- Mari Tamm
+     [java]       Participates in the following courses: 
+     [java]        * Tarkvaratehnika
+     [java]        * Sissejuhatus matemaatilisse loogikasse
+     [java]        * Tarkvaraprojekt
+     [java]        * Algebra I
+     [java]        * Matemaatiline loogika ja algoritmiteooria
+     [java] 
+     [java]  -- Jyri Tamm
+     [java]       Participates in the following courses: 
+     [java]        * Tarkvaratehnika
+     [java]        * Sissejuhatus matemaatilisse loogikasse
+     [java] 
+     [java]  -- Peeter Tamm
+     [java]       Participates in the following courses: 
+     [java]        * Tarkvaratehnika
+     [java]        * Algebra ja geomeetria
+     [java] 
+     [java] 
+     [java] 
+     [java] 
+     [java] 
+     [java]  ********************************************** 
+     [java]  **              LECTURERS                   ** 
+     [java]  ********************************************** 
+     [java] 
+     [java] 
+     [java] Found 3 lecturers:
+     [java]  -- Viktor Abramov (degree: PhD, date of birth: 30.07.1958)
+     [java]       Teaches following courses: 
+     [java]        * Algebra I
+     [java]        * Algebra ja geomeetria
+     [java] 
+     [java]  -- Rein Prank (degree: PhD, date of birth: 22.11.1951)
+     [java]       Teaches following courses: 
+     [java]        * Sissejuhatus matemaatilisse loogikasse
+     [java]        * Matemaatiline loogika ja algoritmiteooria
+     [java] 
+     [java]  -- Marlon Dumas (degree: PhD, date of birth: 25.03.1962)
+     [java]       Teaches following courses: 
+     [java]        * Tarkvaratehnika
+     [java]        * Tarkvaraprojekt
+     [java] 
+     [java] 
+     [java] 
+     [java] 
+     [java] 
+     [java]  ********************************************** 
+     [java]  **               COURSES                    ** 
+     [java]  ********************************************** 
+     [java] 
+     [java] 
+     [java] Found 6 courses:
+     [java]  -- Algebra I [Algebra I]
+     [java]       Belongs to following specialities: 
+     [java]        * matemaatika
+     [java]        * informaatika
+     [java] 
+     [java]  -- Algebra ja geomeetria [Algebra and Geometry]
+     [java]       Belongs to following specialities: 
+     [java]        * matemaatika
+     [java]        * infotehnoloogia
+     [java]        * informaatika
+     [java] 
+     [java]  -- Sissejuhatus matemaatilisse loogikasse [Introduction to Mathematical Logics]
+     [java]       Belongs to following specialities: 
+     [java]        * matemaatika
+     [java]        * informaatika
+     [java] 
+     [java]  -- Matemaatiline loogika ja algoritmiteooria [Mathematical Logics]
+     [java]       Belongs to following specialities: 
+     [java]        * informaatika
+     [java] 
+     [java]  -- Tarkvaratehnika [Software Engineering]
+     [java]       Belongs to following specialities: 
+     [java]        * infotehnoloogia
+     [java]        * informaatika
+     [java] 
+     [java]  -- Tarkvaraprojekt [Software Project]
+     [java]       Belongs to following specialities: 
+     [java]        * infotehnoloogia
+     [java]        * informaatika
+     [java] 
+     [java] 
+     [java] 
+     [java] 
+     [java] 
+     [java]  ********************************************** 
+     [java]  **              SPECIALITIES                ** 
+     [java]  ********************************************** 
+     [java] 
+     [java] 
+     [java] Found 3 specialities:
+     [java]  -- informaatika (faculty : Matemaatika-informaatika)
+     [java]       Has the following students: 
+     [java]        * Mari Tamm
+     [java] 
+     [java]  -- infotehnoloogia (faculty : Matemaatika-informaatika)
+     [java]       Has the following students: 
+     [java]        * Jyri Tamm
+     [java] 
+     [java]  -- matemaatika (faculty : Matemaatika-informaatika)
+     [java]       Has the following students: 
+     [java]        * Peeter Tamm
+     [java] 
+
